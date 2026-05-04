@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: #080811;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.045) 1px, transparent 0);
+  background-size: 28px 28px;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 3px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: rgba(139,92,246,0.35); border-radius: 2px; }
+
+/* ─── Glass surface ──────────────────────────────────────────── */
+.glass {
+  background: rgba(13,13,28,0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ─── Gradient text ──────────────────────────────────────────── */
+.text-grad {
+  background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Card borders ───────────────────────────────────────────── */
+.card {
+  background: rgba(13,13,28,0.6);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+}
+.card-hover:hover {
+  border-color: rgba(139,92,246,0.25);
+  background: rgba(19,19,40,0.8);
+}
+
+/* ─── Gradient border (camera ring) ─────────────────────────── */
+.ring-grad {
+  position: relative;
+}
+.ring-grad::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(139,92,246,0.5), rgba(34,211,238,0.4));
+  z-index: 0;
+  pointer-events: none;
+}
+.ring-grad > * { position: relative; z-index: 1; }
+
+/* ─── Camera corner brackets ─────────────────────────────────── */
+.cam-corners { position: relative; }
+.cam-corners::before,
+.cam-corners::after,
+.cam-corners .corner-br,
+.cam-corners .corner-bl {
+  content: '';
+  position: absolute;
+  width: 18px; height: 18px;
+  border-style: solid;
+  border-color: rgba(139,92,246,0.7);
+}
+.cam-corners::before { top: 0;    left: 0;  border-width: 2px 0 0 2px; }
+.cam-corners::after  { top: 0;    right: 0; border-width: 2px 2px 0 0; }
+
+/* ─── Scan line ──────────────────────────────────────────────── */
+.scan-line {
+  position: absolute; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(139,92,246,0.9) 40%, rgba(34,211,238,0.9) 60%, transparent 100%);
+  animation: scan 2.8s linear infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+@keyframes scan {
+  0%   { top: 0%;   opacity: 1; }
+  95%  { opacity: 0.8; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* ─── Severity badges ────────────────────────────────────────── */
+.badge {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.badge-urgente     { background: rgba(248,113,113,0.12); border: 1px solid rgba(248,113,113,0.3); color: #f87171; }
+.badge-seguimiento { background: rgba(251,191,36,0.12);  border: 1px solid rgba(251,191,36,0.3);  color: #fbbf24; }
+.badge-normal      { background: rgba(74,222,128,0.12);  border: 1px solid rgba(74,222,128,0.3);  color: #4ade80; }
+
+/* ─── Metric bar ─────────────────────────────────────────────── */
+.metric-bar-track {
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.07);
+  overflow: hidden;
+}
+.metric-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+/* ─── Status dot ─────────────────────────────────────────────── */
+.status-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  animation: blink 1.4s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.15} }
+
+/* ─── Numbers (tabular) ──────────────────────────────────────── */
+.num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+
+/* ─── Button focus ───────────────────────────────────────────── */
+button { cursor: pointer; user-select: none; }
+button:focus-visible { outline: 2px solid rgba(139,92,246,0.6); outline-offset: 2px; }
