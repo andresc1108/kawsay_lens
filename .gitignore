@@ -49,3 +49,9 @@ target/
 # Coverage
 coverage/
 .nyc_output/
+
+# Skill / tool files (no son parte del proyecto)
+SKILL.md
+
+# Lock file raíz (no hay paquetes npm en la raíz)
+/package-lock.json

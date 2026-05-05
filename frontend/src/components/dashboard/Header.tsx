@@ -23,7 +23,7 @@ export function Header() {
           />
         </div>
         <div className="flex items-baseline gap-2">
-          <span className="text-grad font-extrabold text-sm tracking-tight">KAWSAY-LENS</span>
+          <span className="text-grad font-display font-extrabold text-sm tracking-widest">KAWSAY-LENS</span>
           <span className="text-[10px] text-muted tracking-widest uppercase hidden sm:block">
             Análisis Ocular
           </span>

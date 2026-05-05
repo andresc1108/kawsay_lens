@@ -1,12 +1,20 @@
 import type { Metadata } from 'next';
-import { Space_Grotesk } from 'next/font/google';
+import { Oxanium, Figtree } from 'next/font/google';
 import { AuthProvider } from '@/contexts/AuthContext';
 import './globals.css';
 
-const spaceGrotesk = Space_Grotesk({
+const oxanium = Oxanium({
   subsets: ['latin'],
-  variable: '--font-sg',
-  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-display',
+  weight: ['400', '500', '600', '700', '800'],
+  display: 'swap',
+});
+
+const figtree = Figtree({
+  subsets: ['latin'],
+  variable: '--font-body',
+  weight: ['300', '400', '500', '600', '700', '800'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -16,8 +24,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={spaceGrotesk.variable}>
-      <body className="bg-base text-white antialiased font-[family-name:var(--font-sg)]">
+    <html lang="es" className={`${oxanium.variable} ${figtree.variable}`}>
+      <body className="bg-base text-white antialiased font-body">
         <AuthProvider>
           {children}
         </AuthProvider>

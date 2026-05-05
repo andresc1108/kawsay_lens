@@ -1,216 +1,193 @@
-# 🔍 KAWSAY-LENS
+# KAWSAY-LENS
 
-**Sistema Académico de Análisis Visual en Tiempo Real con Estructuras de Datos**
+**Sistema Académico de Análisis Ocular en Tiempo Real con IA**
 
-## 📋 Descripción
+Kawsay-Lens es una aplicación full-stack desarrollada como proyecto académico para la materia **"Estructuras de Datos"** en la Universidad Católica de Colombia (2026).
 
-Kawsay-Lens es una aplicación full-stack desarrollada como proyecto académico para la materia **"Estructuras de Datos"**. La aplicación integra:
+> **Descargo de responsabilidad**: herramienta académica de apoyo. Los resultados NO son diagnósticos médicos oficiales. Consulta siempre a un especialista.
 
-- **Frontend**: Interfaz moderna con React/Next.js 14+ y captura en tiempo real de cámara web
-- **Backend**: Microservicio en Java con patrones de diseño (Singleton, Factory)
-- **Estructuras de Datos**: Implementación completa de Queue, Stack, Lista Doble y Lista Circular Doble
-- **IA**: Procesamiento de frames con TensorFlow.js para detección preliminar de patologías oculares
+---
 
-> ⚠️ **DESCARGO DE RESPONSABILIDAD**: Este software es una herramienta académica de apoyo. Los resultados NO son diagnósticos médicos oficiales. Para diagnósticos reales, consulte siempre a un especialista.
+## Descripción
 
-## 🎯 Objetivos Académicos
+La aplicación captura video en tiempo real desde la cámara web, procesa el rostro con **MediaPipe Face Landmarker** y calcula métricas oculares reales (EAR, tasa de parpadeo, simetría) para detectar condiciones como ptosis, asimetría, fatiga ocular y ojo seco. Todos los resultados se pueden exportar a un reporte PDF con diseño profesional.
 
-✅ Implementar todas las estructuras de datos vistas en clase:
-- **Queue (Cola)**: Gestión de frames capturados
-- **Stack (Pila)**: Historial de diagnósticos (con undo)
-- **Lista Doble**: Historial completo de sesión
-- **Lista Circular Doble**: Navegación infinita de filtros
+---
 
-✅ Aplicar patrones de diseño:
-- **Factory Pattern**: Creación de diferentes tipos de reportes
-- **Singleton Pattern**: Administrador de reportes único
+## Tecnologías
 
-✅ Integrar IA con TensorFlow.js
+| Capa | Tecnología |
+|------|-----------|
+| Frontend | Next.js 14 (App Router), React 18, TypeScript |
+| Estilos | Tailwind CSS, Framer Motion, CSS personalizado |
+| IA / Visión | MediaPipe Face Landmarker (`@mediapipe/tasks-vision`) |
+| Autenticación | Firebase Auth |
+| Reportes | jsPDF |
+| Backend | Java 17 + Maven |
+| Patrones | Factory Pattern, Singleton Pattern |
 
-✅ Crear interfaz visual moderna con Tailwind CSS y Framer Motion
+---
 
-## 🏗️ Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 kawsay_lens/
-├── frontend/                    # Next.js Application
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── page.tsx        # Página principal
-│   │   │   ├── layout.tsx      # Layout global
-│   │   │   └── globals.css     # Estilos globales
-│   │   ├── components/
-│   │   │   └── EyeScanner.tsx  # Componente principal
-│   │   ├── lib/
-│   │   │   ├── dataStructures.ts   # Queue, Stack, Lists
-│   │   │   └── reportGenerator.ts  # Generación de PDF
-│   │   └── types/
-│   │       └── index.ts        # Tipos TypeScript
-│   ├── package.json
-│   ├── tsconfig.json
-│   ├── tailwind.config.js
-│   └── next.config.js
+├── frontend/
+│   └── src/
+│       ├── app/
+│       │   ├── auth/
+│       │   │   ├── login/           # Inicio de sesión
+│       │   │   ├── register/        # Registro de cuenta
+│       │   │   └── forgot-password/ # Recuperación de contraseña
+│       │   └── dashboard/           # Panel principal (protegido)
+│       ├── components/
+│       │   ├── EyeScanner.tsx       # Motor de análisis ocular (MediaPipe)
+│       │   ├── scanner/
+│       │   │   ├── ScanWizard.tsx   # Flujo de 3 pasos: posición → análisis → resultado
+│       │   │   └── DiagnosisResult.tsx
+│       │   ├── dashboard/
+│       │   │   ├── Header.tsx
+│       │   │   └── SessionHistory.tsx
+│       │   ├── auth/
+│       │   │   └── AuthGuard.tsx    # Protección de rutas
+│       │   └── ui/                  # Button, Input, Icons
+│       ├── lib/
+│       │   ├── dataStructures.ts    # Queue, Stack, Lista Doble, Lista Circular Doble
+│       │   ├── reportGenerator.ts   # Reporte PDF (diseño oscuro)
+│       │   └── firebase.ts          # Configuración Firebase
+│       ├── contexts/
+│       │   └── AuthContext.tsx
+│       ├── hooks/
+│       │   └── useAuth.ts
+│       └── types/
+│           └── index.ts
 │
-└── backend/                     # Java Backend
-    ├── src/main/java/com/kawsay/
-    │   ├── model/
-    │   │   ├── DiagnosticReport.java          # Clase base
-    │   │   ├── UrgentDiagnosticReport.java    # Reporte Urgente
-    │   │   ├── FollowUpDiagnosticReport.java  # Reporte Seguimiento
-    │   │   └── NormalDiagnosticReport.java    # Reporte Normal
-    │   ├── factory/
-    │   │   └── DiagnosticReportFactory.java   # Factory Pattern
-    │   ├── DiagnosticReportManager.java       # Singleton Pattern
-    │   └── DiagnosticReportDemo.java          # Demostración
-    └── pom.xml                 # Configuración Maven
+└── backend/
+    └── src/main/java/com/kawsay/
+        ├── model/                   # DiagnosticReport (abstracta) + 3 subclases
+        ├── factory/                 # DiagnosticReportFactory
+        ├── DiagnosticReportManager.java  # Singleton
+        └── DiagnosticReportDemo.java
 ```
 
-## 🚀 Inicio Rápido
+---
+
+## Inicio Rápido
+
+### Requisitos previos
+
+- Node.js 18+
+- Java 17+ y Maven 3.8+
+- Cuenta en [Firebase](https://firebase.google.com/) con Authentication habilitado
 
 ### Frontend
 
 ```bash
 cd frontend
+cp .env.local.example .env.local   # Completa con tus claves de Firebase
 npm install
 npm run dev
-# Abre http://localhost:3000
 ```
 
-### Backend
+Abre [http://localhost:3000](http://localhost:3000). El sitio redirige a `/auth/login` si no hay sesión activa.
+
+### Backend (demostración de patrones)
 
 ```bash
 cd backend
-# Compilar
 mvn clean compile
-
-# Ejecutar demostración
 mvn exec:java -Dexec.mainClass="com.kawsay.DiagnosticReportDemo"
-
-# Crear JAR
-mvn package
 ```
 
-## 📱 Características Principales
+---
 
-### EyeScanner Component
-- ✅ Acceso a cámara en tiempo real
-- ✅ Canvas con overlay de escaneo animado
-- ✅ Procesamiento asíncrono de frames (Queue)
-- ✅ 3 filtros visuales navegables (Lista Circular Doble)
-- ✅ Diagnósticos con undo (Stack)
-- ✅ Historial completo de sesión (Lista Doble)
+## Flujo de Uso
 
-### Reporte PDF
-- ✅ Generación profesional con jsPDF
-- ✅ Listado de hallazgos
-- ✅ Descargo de responsabilidad legal
-- ✅ Información de sesión
+1. Regístrate o inicia sesión con tu cuenta Firebase
+2. En el dashboard, haz clic en **"Iniciar análisis"**
+3. **Paso 1 – Posición**: centra tu rostro en el encuadre hasta que aparezca "Rostro detectado"
+4. **Paso 2 – Análisis**: el sistema captura métricas durante **8 segundos**
+5. **Paso 3 – Resultado**: revisa el diagnóstico y descarga el reporte PDF
+6. El historial de sesión acumula todos los análisis realizados
 
-### Backend Robusto
-- ✅ Factory Pattern para 3 tipos de reportes
-- ✅ Singleton para administrador único
-- ✅ Validaciones y recomendaciones automáticas
+---
 
-## 📊 Estructuras de Datos Implementadas
+## Estructuras de Datos Implementadas
 
-### 1. **FrameQueue** - Queue (Cola)
-```typescript
-const frameQueue = new FrameQueue(100);
-frameQueue.enqueue(frameData);
-const frame = frameQueue.dequeue();
-```
+| Estructura | Clase | Uso en la app |
+|------------|-------|--------------|
+| **Queue (Cola FIFO)** | `FrameQueue` | Buffer de frames de cámara (hasta 50) |
+| **Stack (Pila LIFO)** | `DiagnosticStack` | Historial de diagnósticos con undo |
+| **Lista Doblemente Enlazada** | `DoublyLinkedList` | Historial de sesión navegable en ambas direcciones |
+| **Lista Circular Doble** | `CircularDoublyLinkedList` | Navegación infinita de filtros de visión |
 
-### 2. **DiagnosticStack** - Stack (Pila)
-```typescript
-const stack = new DiagnosticStack();
-stack.push(diagnosis);
-const last = stack.pop(); // Undo último diagnóstico
-```
+Todas implementadas desde cero en `frontend/src/lib/dataStructures.ts` con TypeScript genérico.
 
-### 3. **DoublyLinkedList** - Lista Doble
-```typescript
-const history = new DoublyLinkedList<DiagnosticResult>();
-history.append(finding);
-const allFindings = history.getAll();
-```
+---
 
-### 4. **CircularDoublyLinkedList** - Lista Circular Doble
-```typescript
-const filters = new CircularDoublyLinkedList<VisionFilter>();
-filters.append(filterNormal);
-filters.append(filterGrayscale);
-const nextFilter = filters.getNext(); // Navegación infinita
-```
+## Métricas Oculares (MediaPipe)
 
-## 🔧 Patrones de Diseño
+| Métrica | Descripción | Umbral de alerta |
+|---------|-------------|-----------------|
+| **EAR** (Eye Aspect Ratio) | Apertura del ojo | < 0.14 → posible ptosis |
+| **Simetría** | Diferencia EAR izq./der. | > 0.06 → asimetría |
+| **Promedio EAR** | Fatiga general | 0.14 – 0.22 → fatiga ocular |
+| **Tasa de parpadeo** | Parpadeos por minuto | < 10 → posible ojo seco |
 
-### Factory Pattern (Java)
+---
+
+## Patrones de Diseño (Backend Java)
+
+### Factory Pattern
+
 ```java
-DiagnosticReport report = DiagnosticReportFactory.createReport(
-    "Cataracia",
-    0.92,
-    ReportSeverity.URGENTE,
-    sessionId
+DiagnosticReport reporte = DiagnosticReportFactory.createReport(
+    "Ptosis Ocular", 0.92, ReportSeverity.URGENTE, sessionId
 );
+// Retorna UrgentDiagnosticReport, FollowUpDiagnosticReport o NormalDiagnosticReport
 ```
 
-Tipos generados:
-- `UrgentDiagnosticReport` - Para hallazgos críticos
-- `FollowUpDiagnosticReport` - Para seguimiento
-- `NormalDiagnosticReport` - Para variaciones normales
+### Singleton Pattern
 
-### Singleton Pattern (Java)
 ```java
 DiagnosticReportManager manager = DiagnosticReportManager.getInstance();
 manager.createAndRegisterReport(...);
 ```
 
-## 🎨 Stack Tecnológico
+---
 
-| Capa | Tecnologías |
-|------|------------|
-| **Frontend** | Next.js 14, React 18, TypeScript, Tailwind CSS, Framer Motion |
-| **Estilos** | Tailwind CSS, CSS Animations |
-| **IA** | TensorFlow.js (Framework listo) |
-| **Backend** | Java 17, Spring Boot (Opcional), Maven |
-| **Reportes** | jsPDF |
-| **Cámara** | HTML5 WebRTC API |
+## Variables de Entorno (Firebase)
 
-## 📝 Requisitos Académicos Cumplidos
+Copia `frontend/.env.local.example` como `frontend/.env.local` y rellena:
 
-- ✅ **Arquitectura Completa**: Frontend + Backend + IA
-- ✅ **TypeScript Exclusivo**: Código 100% tipado en el frontend
-- ✅ **Estructuras de Datos**: Queue, Stack, Lists (todas implementadas)
-- ✅ **Patrones de Diseño**: Factory, Singleton
-- ✅ **Caso de Estudio Real**: Detección de patologías oculares
-- ✅ **Presentación PDF**: Sistema de reportes completo
-- ✅ **Interfaz Moderna**: UI responsive con animaciones fluidas
-
-## 🧪 Testing
-
-### Frontend
-```bash
-npm test
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=...
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=...
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=...
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=...
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=...
+NEXT_PUBLIC_FIREBASE_APP_ID=...
 ```
 
-### Backend
-```bash
-mvn test
-```
+---
 
-## 📄 Licencia
+## Requisitos Académicos Cumplidos
 
-Uso académico exclusivamente. Proyecto educativo UCC - Semestre 2026.
+- Queue, Stack, Lista Doble, Lista Circular Doble — implementadas y usadas en flujo real
+- Factory Pattern + Singleton Pattern — backend Java
+- IA real con MediaPipe Face Landmarker (no simulada)
+- Autenticación con Firebase Auth
+- Frontend en TypeScript con Next.js 14 App Router
+- Reporte PDF con diseño profesional
+- Interfaz responsive con animaciones
 
-## 👥 Equipo de Desarrollo
+---
 
-Grupo máximo de 3 estudiantes (según requisitos)
-
-## 📅 Entrega
+## Fechas de Entrega
 
 - **Grupo 1**: 21 de mayo de 2026
 - **Grupo 2**: 28 de mayo de 2026
 
 ---
 
-**Kawsay** (Quechua): "Salud" | **Lens**: Lente
+**Kawsay** (Quechua) · "Salud" — Universidad Católica de Colombia · Estructuras de Datos 2026

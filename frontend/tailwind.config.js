@@ -6,6 +6,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        body:    ['var(--font-body)',    'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', 'system-ui', 'sans-serif'],
+      },
       colors: {
         base:    '#080811',
         surface: '#0e0e1c',
@@ -34,19 +38,20 @@ module.exports = {
       },
       animation: {
         'scan':       'scan 2.8s linear infinite',
-        'fade-up':    'fadeUp 0.3s ease forwards',
+        'fade-up':    'fadeUp 0.35s ease forwards',
         'blink':      'blink 1.4s ease-in-out infinite',
         'glow-pulse': 'glowPulse 2.5s ease-in-out infinite',
         'bar-fill':   'barFill 0.6s ease forwards',
+        'grad-shift': 'gradShift 5s ease infinite',
       },
       keyframes: {
         scan: {
           '0%':   { top: '0%',   opacity: '1'   },
-          '95%':  { opacity: '0.7' },
+          '95%':  { opacity: '0.8' },
           '100%': { top: '100%', opacity: '0'   },
         },
         fadeUp: {
-          from: { opacity: '0', transform: 'translateY(6px)' },
+          from: { opacity: '0', transform: 'translateY(8px)' },
           to:   { opacity: '1', transform: 'translateY(0)'   },
         },
         blink: {
@@ -60,6 +65,11 @@ module.exports = {
         barFill: {
           from: { width: '0%' },
           to:   { width: 'var(--bar-w)' },
+        },
+        gradShift: {
+          '0%':   { backgroundPosition: '0% 50%'   },
+          '50%':  { backgroundPosition: '100% 50%' },
+          '100%': { backgroundPosition: '0% 50%'   },
         },
       },
     },

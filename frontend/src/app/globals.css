@@ -8,20 +8,23 @@ html { scroll-behavior: smooth; }
 
 body {
   background-color: #080811;
-  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.045) 1px, transparent 0);
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.038) 1px, transparent 0);
   background-size: 28px 28px;
   color: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-/* ─── Scrollbar ──────────────────────────────────────────────── */
+/* ─── Scrollbar ────────────────────────────────────────────── */
 ::-webkit-scrollbar        { width: 3px; }
 ::-webkit-scrollbar-track  { background: transparent; }
 ::-webkit-scrollbar-thumb  { background: rgba(139,92,246,0.35); border-radius: 2px; }
 
-/* ─── Glass surface ──────────────────────────────────────────── */
+/* ─── Display font (Oxanium) ──────────────────────────────── */
+.font-display { font-family: var(--font-display), system-ui, sans-serif; }
+
+/* ─── Glass surface ────────────────────────────────────────── */
 .glass {
   background: rgba(13,13,28,0.75);
   backdrop-filter: blur(14px);
@@ -29,15 +32,23 @@ body {
   border: 1px solid rgba(255,255,255,0.06);
 }
 
-/* ─── Gradient text ──────────────────────────────────────────── */
+/* ─── Gradient text (animated) ─────────────────────────────── */
 .text-grad {
-  background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 100%);
+  background: linear-gradient(135deg, #a78bfa, #22d3ee, #a78bfa);
+  background-size: 200% 200%;
+  animation: gradShift 5s ease infinite;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* ─── Card borders ───────────────────────────────────────────── */
+@keyframes gradShift {
+  0%   { background-position: 0% 50%;   }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%;   }
+}
+
+/* ─── Card borders ──────────────────────────────────────────── */
 .card {
   background: rgba(13,13,28,0.6);
   border: 1px solid rgba(255,255,255,0.06);
@@ -48,10 +59,8 @@ body {
   background: rgba(19,19,40,0.8);
 }
 
-/* ─── Gradient border (camera ring) ─────────────────────────── */
-.ring-grad {
-  position: relative;
-}
+/* ─── Gradient border (camera ring) ────────────────────────── */
+.ring-grad { position: relative; }
 .ring-grad::before {
   content: '';
   position: absolute;
@@ -63,36 +72,43 @@ body {
 }
 .ring-grad > * { position: relative; z-index: 1; }
 
-/* ─── Camera corner brackets ─────────────────────────────────── */
+/* ─── Camera corner brackets ────────────────────────────────── */
 .cam-corners { position: relative; }
 .cam-corners::before,
-.cam-corners::after,
-.cam-corners .corner-br,
-.cam-corners .corner-bl {
+.cam-corners::after {
   content: '';
   position: absolute;
   width: 18px; height: 18px;
   border-style: solid;
   border-color: rgba(139,92,246,0.7);
 }
-.cam-corners::before { top: 0;    left: 0;  border-width: 2px 0 0 2px; }
-.cam-corners::after  { top: 0;    right: 0; border-width: 2px 2px 0 0; }
+.cam-corners::before { top: 0; left: 0;  border-width: 2px 0 0 2px; }
+.cam-corners::after  { top: 0; right: 0; border-width: 2px 2px 0 0; }
 
-/* ─── Scan line ──────────────────────────────────────────────── */
+/* ─── Scan line (with glow) ─────────────────────────────────── */
 .scan-line {
-  position: absolute; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(139,92,246,0.9) 40%, rgba(34,211,238,0.9) 60%, transparent 100%);
+  position: absolute; left: 0; right: 0; height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(139,92,246,0.0) 8%,
+    rgba(139,92,246,0.9) 40%,
+    rgba(34,211,238,0.9) 60%,
+    rgba(34,211,238,0.0) 92%,
+    transparent 100%
+  );
+  box-shadow: 0 0 10px rgba(139,92,246,0.55), 0 0 22px rgba(34,211,238,0.25);
   animation: scan 2.8s linear infinite;
   pointer-events: none;
   z-index: 10;
 }
 @keyframes scan {
-  0%   { top: 0%;   opacity: 1; }
+  0%   { top: 0%;   opacity: 1;   }
   95%  { opacity: 0.8; }
-  100% { top: 100%; opacity: 0; }
+  100% { top: 100%; opacity: 0;   }
 }
 
-/* ─── Severity badges ────────────────────────────────────────── */
+/* ─── Severity badges ───────────────────────────────────────── */
 .badge {
   padding: 2px 8px;
   border-radius: 4px;
@@ -100,6 +116,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  font-family: var(--font-display), system-ui, sans-serif;
 }
 .badge-urgente     { background: rgba(248,113,113,0.12); border: 1px solid rgba(248,113,113,0.3); color: #f87171; }
 .badge-seguimiento { background: rgba(251,191,36,0.12);  border: 1px solid rgba(251,191,36,0.3);  color: #fbbf24; }
@@ -126,9 +143,21 @@ body {
 }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.15} }
 
-/* ─── Numbers (tabular) ──────────────────────────────────────── */
-.num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+/* ─── Numbers (tabular, monospaced feel) ─────────────────────── */
+.num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  font-family: var(--font-display), system-ui, sans-serif;
+  letter-spacing: 0.02em;
+}
 
 /* ─── Button focus ───────────────────────────────────────────── */
 button { cursor: pointer; user-select: none; }
 button:focus-visible { outline: 2px solid rgba(139,92,246,0.6); outline-offset: 2px; }
+
+/* ─── Fade-up entry ──────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+.animate-fade-up { animation: fadeUp 0.35s ease forwards; }

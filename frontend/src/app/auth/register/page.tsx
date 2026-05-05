@@ -81,7 +81,7 @@ export default function RegisterPage() {
           <Image src="/logo.png" alt="Logo" fill style={{ objectFit: 'contain', mixBlendMode: 'multiply' }} />
         </div>
         <div className="text-center">
-          <h1 className="text-grad font-extrabold text-xl tracking-tight">KAWSAY-LENS</h1>
+          <h1 className="text-grad font-display font-extrabold text-xl tracking-widest">KAWSAY-LENS</h1>
           <p className="text-[10px] text-muted tracking-widest mt-0.5 uppercase">Crear cuenta</p>
         </div>
       </div>
