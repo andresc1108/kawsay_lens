@@ -2,7 +2,7 @@
 
 **Sistema Académico de Análisis Ocular en Tiempo Real con IA**
 
-Kawsay-Lens es una aplicación full-stack desarrollada como proyecto académico para la materia **"Estructuras de Datos"** en la Universidad Católica de Colombia (2026).
+Kawsay-Lens es una aplicación full-stack desarrollada como proyecto académico para la materia **"Estructuras de Datos"** en la Universidad Cooperativa de Colombia (2026).
 
 > **Descargo de responsabilidad**: herramienta académica de apoyo. Los resultados NO son diagnósticos médicos oficiales. Consulta siempre a un especialista.
 
@@ -190,4 +190,4 @@ NEXT_PUBLIC_FIREBASE_APP_ID=...
 
 ---
 
-**Kawsay** (Quechua) · "Salud" — Universidad Católica de Colombia · Estructuras de Datos 2026
+**Kawsay** (Quechua) · "Salud" — Universidad Cooperativa de Colombia · Estructuras de Datos 2026
