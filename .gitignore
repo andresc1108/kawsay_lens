@@ -55,3 +55,7 @@ SKILL.md
 
 # Lock file raíz (no hay paquetes npm en la raíz)
 /package-lock.json
+
+# Documentacion local de referencia academica (no va al repo)
+ESTRUCTURAS_DE_DATOS.md
+PRESENTACION_CASO_ESTUDIO.md
