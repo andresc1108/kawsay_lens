@@ -7,9 +7,11 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background-color: #080811;
-  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.038) 1px, transparent 0);
-  background-size: 28px 28px;
+  background-color: #04060f;
+  background-image:
+    linear-gradient(rgba(0,200,168,0.032) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,200,168,0.032) 1px, transparent 1px);
+  background-size: 40px 40px;
   color: #ffffff;
   font-family: var(--font-body), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -19,7 +21,7 @@ body {
 /* ─── Scrollbar ────────────────────────────────────────────── */
 ::-webkit-scrollbar        { width: 3px; }
 ::-webkit-scrollbar-track  { background: transparent; }
-::-webkit-scrollbar-thumb  { background: rgba(139,92,246,0.35); border-radius: 2px; }
+::-webkit-scrollbar-thumb  { background: rgba(0,200,168,0.35); border-radius: 2px; }
 
 /* ─── Display font (Oxanium) ──────────────────────────────── */
 .font-display { font-family: var(--font-display), system-ui, sans-serif; }
@@ -34,7 +36,7 @@ body {
 
 /* ─── Gradient text (animated) ─────────────────────────────── */
 .text-grad {
-  background: linear-gradient(135deg, #a78bfa, #22d3ee, #a78bfa);
+  background: linear-gradient(135deg, #00c8a8, #22d3ee, #00c8a8);
   background-size: 200% 200%;
   animation: gradShift 5s ease infinite;
   -webkit-background-clip: text;
@@ -55,8 +57,8 @@ body {
   border-radius: 12px;
 }
 .card-hover:hover {
-  border-color: rgba(139,92,246,0.25);
-  background: rgba(19,19,40,0.8);
+  border-color: rgba(0,200,168,0.25);
+  background: rgba(9,13,24,0.9);
 }
 
 /* ─── Gradient border (camera ring) ────────────────────────── */
@@ -66,7 +68,7 @@ body {
   position: absolute;
   inset: -1px;
   border-radius: inherit;
-  background: linear-gradient(135deg, rgba(139,92,246,0.5), rgba(34,211,238,0.4));
+  background: linear-gradient(135deg, rgba(0,200,168,0.5), rgba(34,211,238,0.4));
   z-index: 0;
   pointer-events: none;
 }
@@ -80,7 +82,7 @@ body {
   position: absolute;
   width: 18px; height: 18px;
   border-style: solid;
-  border-color: rgba(139,92,246,0.7);
+  border-color: rgba(0,200,168,0.7);
 }
 .cam-corners::before { top: 0; left: 0;  border-width: 2px 0 0 2px; }
 .cam-corners::after  { top: 0; right: 0; border-width: 2px 2px 0 0; }
@@ -91,13 +93,13 @@ body {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(139,92,246,0.0) 8%,
-    rgba(139,92,246,0.9) 40%,
+    rgba(0,200,168,0.0) 8%,
+    rgba(0,200,168,0.9) 40%,
     rgba(34,211,238,0.9) 60%,
     rgba(34,211,238,0.0) 92%,
     transparent 100%
   );
-  box-shadow: 0 0 10px rgba(139,92,246,0.55), 0 0 22px rgba(34,211,238,0.25);
+  box-shadow: 0 0 10px rgba(0,200,168,0.55), 0 0 22px rgba(34,211,238,0.25);
   animation: scan 2.8s linear infinite;
   pointer-events: none;
   z-index: 10;
@@ -153,7 +155,7 @@ body {
 
 /* ─── Button focus ───────────────────────────────────────────── */
 button { cursor: pointer; user-select: none; }
-button:focus-visible { outline: 2px solid rgba(139,92,246,0.6); outline-offset: 2px; }
+button:focus-visible { outline: 2px solid rgba(0,200,168,0.6); outline-offset: 2px; }
 
 /* ─── Fade-up entry ──────────────────────────────────────────── */
 @keyframes fadeUp {

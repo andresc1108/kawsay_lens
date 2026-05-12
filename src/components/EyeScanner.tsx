@@ -373,7 +373,7 @@ export const EyeScanner = forwardRef<EyeScannerHandle, EyeScannerProps>(
           style={{
             aspectRatio: '16/9',
             boxShadow: isActive
-              ? '0 0 0 1px rgba(139,92,246,0.4), 0 0 40px rgba(139,92,246,0.12)'
+              ? '0 0 0 1px rgba(0,200,168,0.4), 0 0 40px rgba(0,200,168,0.12)'
               : '0 0 0 1px rgba(255,255,255,0.06)',
           }}
         >

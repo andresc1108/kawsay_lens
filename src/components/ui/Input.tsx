@@ -34,7 +34,7 @@ export function Input({ label, error, icon, type, className = '', ...rest }: Inp
             ${isPassword ? 'pr-10' : ''}
             ${error
               ? 'border-rose/40 focus:border-rose/70'
-              : 'border-rim focus:border-cyan/40 focus:shadow-[0_0_0_3px_rgba(34,211,238,0.08)]'
+              : 'border-rim focus:border-violet/40 focus:shadow-[0_0_0_3px_rgba(0,200,168,0.08)]'
             }
             ${className}
           `}
