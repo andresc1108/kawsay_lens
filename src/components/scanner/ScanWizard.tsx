@@ -125,6 +125,26 @@ function computeDiagnosis(buffer: EyeMetrics[]): DiagnosticResult {
   };
 }
 
+// ── Live metrics grid ─────────────────────────────────────────────────────────
+function LiveMetricsGrid({ metrics }: { metrics: EyeMetrics }) {
+  const items = [
+    { label: 'EAR izq.',      value: metrics.leftEAR.toFixed(3),                        color: 'text-cyan'   },
+    { label: 'EAR der.',      value: metrics.rightEAR.toFixed(3),                       color: 'text-cyan'   },
+    { label: 'Parpadeos/min', value: `${Math.round(metrics.blinkRate)}`,                color: 'text-amber'  },
+    { label: 'Simetría',      value: `${Math.round(metrics.symmetryScore * 100)}%`,     color: 'text-violet' },
+  ];
+  return (
+    <div className="grid grid-cols-2 gap-2">
+      {items.map(({ label, value, color }) => (
+        <div key={label} className="rounded-lg bg-surface/60 border border-rim p-2.5 text-center">
+          <p className="text-[9px] text-muted uppercase tracking-widest mb-1">{label}</p>
+          <p className={`num font-bold text-sm ${color}`}>{value}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 // ── Step indicator ────────────────────────────────────────────────────────────
 const STEPS = [
   { id: 'positioning', label: 'Posición',  icon: EyeIcon  },
@@ -351,22 +371,7 @@ export function ScanWizard({ onResult }: ScanWizardProps) {
             </p>
           </div>
 
-          {/* Live metric preview */}
-          {liveMetrics?.faceDetected && (
-            <div className="grid grid-cols-2 gap-2">
-              {[
-                { label: 'EAR izq.', value: liveMetrics.leftEAR.toFixed(3),  color: 'text-cyan'    },
-                { label: 'EAR der.', value: liveMetrics.rightEAR.toFixed(3), color: 'text-cyan'    },
-                { label: 'Parpadeos/min', value: `${Math.round(liveMetrics.blinkRate)}`, color: 'text-amber' },
-                { label: 'Simetría', value: `${Math.round(liveMetrics.symmetryScore * 100)}%`, color: 'text-violet' },
-              ].map(({ label, value, color }) => (
-                <div key={label} className="rounded-lg bg-surface/60 border border-rim p-2.5 text-center">
-                  <p className="text-[9px] text-muted uppercase tracking-widest mb-1">{label}</p>
-                  <p className={`num font-bold text-sm ${color}`}>{value}</p>
-                </div>
-              ))}
-            </div>
-          )}
+          {liveMetrics?.faceDetected && <LiveMetricsGrid metrics={liveMetrics} />}
 
           <div className="flex gap-3">
             <Button variant="ghost" onClick={handleReset} className="flex-shrink-0">
@@ -402,22 +407,7 @@ export function ScanWizard({ onResult }: ScanWizardProps) {
             </div>
           </div>
 
-          {/* Live metrics during analysis */}
-          {liveMetrics?.faceDetected && (
-            <div className="grid grid-cols-2 gap-2">
-              {[
-                { label: 'EAR izq.',     value: liveMetrics.leftEAR.toFixed(3),  color: 'text-cyan'    },
-                { label: 'EAR der.',     value: liveMetrics.rightEAR.toFixed(3), color: 'text-cyan'    },
-                { label: 'Parpadeos/min',value: `${Math.round(liveMetrics.blinkRate)}`, color: 'text-amber' },
-                { label: 'Simetría',     value: `${Math.round(liveMetrics.symmetryScore * 100)}%`, color: 'text-violet' },
-              ].map(({ label, value, color }) => (
-                <div key={label} className="rounded-lg bg-surface/60 border border-rim p-2.5 text-center">
-                  <p className="text-[9px] text-muted uppercase tracking-widest mb-1">{label}</p>
-                  <p className={`num font-bold text-sm ${color}`}>{value}</p>
-                </div>
-              ))}
-            </div>
-          )}
+          {liveMetrics?.faceDetected && <LiveMetricsGrid metrics={liveMetrics} />}
 
           {!liveMetrics?.faceDetected && (
             <p className="text-sm text-amber text-center py-2">

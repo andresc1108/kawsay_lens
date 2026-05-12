@@ -15,9 +15,9 @@ interface DiagnosisResultProps {
 }
 
 const SEVERITY_CONFIG = {
-  URGENTE:     { label: 'Urgente',     cls: 'badge-urgente',     icon: AlertIcon,  border: 'border-rose/30',   glow: 'rgba(248,113,113,0.12)' },
-  SEGUIMIENTO: { label: 'Seguimiento', cls: 'badge-seguimiento', icon: InfoIcon,   border: 'border-amber/30',  glow: 'rgba(251,191,36,0.08)'  },
-  NORMAL:      { label: 'Normal',      cls: 'badge-normal',      icon: CheckIcon,  border: 'border-emerald/30',glow: 'rgba(74,222,128,0.08)'  },
+  URGENTE:     { label: 'Urgente',     cls: 'badge-urgente',     icon: AlertIcon,  borderColor: 'rgba(248,113,113,0.3)', glow: 'rgba(248,113,113,0.12)' },
+  SEGUIMIENTO: { label: 'Seguimiento', cls: 'badge-seguimiento', icon: InfoIcon,   borderColor: 'rgba(251,191,36,0.3)',  glow: 'rgba(251,191,36,0.08)'  },
+  NORMAL:      { label: 'Normal',      cls: 'badge-normal',      icon: CheckIcon,  borderColor: 'rgba(74,222,128,0.3)',  glow: 'rgba(74,222,128,0.08)'  },
 };
 
 function MetricRow({ label, value, color }: { label: string; value: string; color: string }) {
@@ -42,10 +42,8 @@ export function DiagnosisResult({ result, onRepeat, onExport }: DiagnosisResultP
     <div
       className="w-full max-w-lg mx-auto rounded-2xl border p-6 flex flex-col gap-5 animate-fade-up"
       style={{
-        background:   `radial-gradient(ellipse at top, ${cfg.glow} 0%, transparent 60%), rgba(13,13,28,0.85)`,
-        borderColor:  cfg.border.replace('border-', '').replace('/30', ''),
-        borderWidth:  1,
-        borderStyle:  'solid',
+        background:  `radial-gradient(ellipse at top, ${cfg.glow} 0%, transparent 60%), rgba(9,13,24,0.9)`,
+        borderColor: cfg.borderColor,
       }}
     >
       {/* Top row */}
