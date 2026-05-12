@@ -1,12 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import type { DiagnosticResult } from '@/types';
 import {
   ActivityIcon, ShieldIcon, InfoIcon, CheckIcon,
   AlertIcon, RefreshIcon, DownloadIcon,
 } from '@/components/ui/Icons';
 import { Button } from '@/components/ui/Button';
+import { SinglyLinkedList } from '@/lib/dataStructures';
 
 interface DiagnosisResultProps {
   result: DiagnosticResult;
@@ -37,6 +38,13 @@ export function DiagnosisResult({ result, onRepeat, onExport }: DiagnosisResultP
   const time = new Date(result.timestamp).toLocaleTimeString('es-CO', {
     hour: '2-digit', minute: '2-digit',
   });
+
+  // Lista Simple: carga las recomendaciones en una lista enlazada unidireccional
+  const recommendationList = useMemo(() => {
+    const list = new SinglyLinkedList<string>();
+    result.recommendations.forEach((rec) => list.append(rec));
+    return list;
+  }, [result.recommendations]);
 
   return (
     <div
@@ -114,7 +122,7 @@ export function DiagnosisResult({ result, onRepeat, onExport }: DiagnosisResultP
           <span className="text-[10px] uppercase tracking-widest text-muted">Recomendaciones</span>
         </div>
         <ul className="flex flex-col gap-2">
-          {result.recommendations.map((rec, i) => (
+          {recommendationList.getAll().map((rec, i) => (
             <li key={i} className="flex items-start gap-2.5 text-sm text-subtle">
               <div className="w-1 h-1 rounded-full bg-violet mt-2 flex-shrink-0" />
               {rec}

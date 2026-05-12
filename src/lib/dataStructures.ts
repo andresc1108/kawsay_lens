@@ -1,6 +1,6 @@
 /**
  * Estructuras de Datos para Kawsay-Lens
- * Implementación de Queue, Stack, Lista Circular Doble y Lista Doble
+ * Implementación de Queue, Stack, Lista Simple, Lista Doble y Lista Circular Doble
  */
 
 import type { FrameData, DiagnosticResult, VisionFilter } from '@/types';
@@ -42,6 +42,88 @@ export class FrameQueue {
 
   clear(): void {
     this.queue = [];
+  }
+}
+
+/**
+ * Nodo para Lista Simple
+ */
+class SinglyLinkedNode<T> {
+  data: T;
+  next: SinglyLinkedNode<T> | null = null;
+
+  constructor(data: T) {
+    this.data = data;
+  }
+}
+
+/**
+ * LISTA SIMPLE: Para almacenar el historial de recomendaciones médicas
+ * Estructura enlazada unidireccional — cada nodo apunta solo al siguiente
+ */
+export class SinglyLinkedList<T> {
+  private head: SinglyLinkedNode<T> | null = null;
+  private length: number = 0;
+
+  append(data: T): void {
+    const newNode = new SinglyLinkedNode(data);
+    if (this.head === null) {
+      this.head = newNode;
+    } else {
+      let current = this.head;
+      while (current.next !== null) {
+        current = current.next;
+      }
+      current.next = newNode;
+    }
+    this.length++;
+  }
+
+  prepend(data: T): void {
+    const newNode = new SinglyLinkedNode(data);
+    newNode.next = this.head;
+    this.head = newNode;
+    this.length++;
+  }
+
+  removeFirst(): T | null {
+    if (this.head === null) return null;
+    const data = this.head.data;
+    this.head = this.head.next;
+    this.length--;
+    return data;
+  }
+
+  find(predicate: (data: T) => boolean): T | null {
+    let current = this.head;
+    while (current !== null) {
+      if (predicate(current.data)) return current.data;
+      current = current.next;
+    }
+    return null;
+  }
+
+  getAll(): T[] {
+    const result: T[] = [];
+    let current = this.head;
+    while (current !== null) {
+      result.push(current.data);
+      current = current.next;
+    }
+    return result;
+  }
+
+  size(): number {
+    return this.length;
+  }
+
+  isEmpty(): boolean {
+    return this.length === 0;
+  }
+
+  clear(): void {
+    this.head = null;
+    this.length = 0;
   }
 }
 
